@@ -1011,7 +1011,8 @@ class WikiStream
 		}
 
 		$sparql = "SELECT ?q ?ia {
-			?q (wdt:P31/(wdt:P279*)) wd:Q11424 ; wdt:P724 ?ia . # A film with an Internet Archive value
+			{ { ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } } # Film or TV episode
+			?q wdt:P724 ?ia . # with an Internet Archive value
 			?q p:P724 ?statement .
 			?statement ps:P724 ?ia .
 			MINUS { ?statement pq:P2047 ?duration }
@@ -1123,7 +1124,8 @@ class WikiStream
 
 		# Get all candidate items
 		$sparql = "SELECT DISTINCT ?q ?qLabel (year(?date) AS ?year) ?duration ?sitelinks {
-					  ?q (wdt:P31/(wdt:P279*)) wd:Q11424 ; wdt:P6216 wd:Q19652 ; wikibase:sitelinks ?sitelinks .
+					  { { ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } } # Film or TV episode
+					  ?q wdt:P6216 wd:Q19652 ; wikibase:sitelinks ?sitelinks .
 					  MINUS { ?q wdt:P31 wd:Q97570383 } # Glass positive
 					  MINUS { ?q wdt:P793 wd:Q1268687 } # Lost film
 					  MINUS { ?q wdt:P12020 wd:Q122238711 } # Lost film
