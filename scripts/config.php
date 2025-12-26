@@ -29,7 +29,7 @@ class WikiStreamConfigWikiFlix extends WikiStreamConfig
 	public $bad_genres = [185529, 4373044, 3461143, 599558]; # P136
 	public $sparql = [
 		"SELECT DISTINCT ?q {
-			{ ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } # Film or TV episode
+			{ { ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } } # Film or TV episode
 			?q wdt:P6216 wd:Q19652 .
 			MINUS { ?q wdt:P31 wd:Q97570383 } # Glass positive
 			OPTIONAL { ?q wdt:P724 ?ia }
@@ -41,14 +41,14 @@ class WikiStreamConfigWikiFlix extends WikiStreamConfig
 			FILTER(?hasMedia=true)
 		}",
 		"SELECT DISTINCT ?q {
-			{ ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } # Film or TV episode
+			{ { ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } } # Film or TV episode
 			?q p:P10 ?statement . # Commons video
 			?statement ps:P10 ?commons . # The video ID (not used here)
 			?statement pq:P3831 wd:Q89347362 # full video
 			MINUS {?q wdt:P6216 wd:Q19652 } # but don't bother with the public domain ones
 		}",
 		"SELECT DISTINCT ?q {
-			{ ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } # Film or TV episode
+			{ { ?q (wdt:P31/(wdt:P279*)) wd:Q11424 } UNION { ?q (wdt:P31/(wdt:P279*)) wd:Q21191270 } } # Film or TV episode
 			?q wdt:P2047 ?duration . # with a duration
 			?q p:P724 ?statement . # with an Internet Archive ID
 			MINUS { ?statement pq:P11484 wd:Q124428688 } . # Without 'do not use for WikiFlix'
